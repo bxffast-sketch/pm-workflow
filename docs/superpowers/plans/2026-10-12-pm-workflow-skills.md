@@ -1158,6 +1158,171 @@ git commit -m "Add install script to symlink PM skills into global ~/.claude/ski
 
 ---
 
+## Task 8:`/pm-research` —— 市场竞品调研(新增,追加于原 7 个 Task 之后)
+
+**说明:** 这是在原 7 个 Task 全部完成并通过评审之后新增的需求(设计见 `docs/superpowers/specs/2026-10-12-pm-workflow-skills-design.md` §5.3.5)。运行时序插在 `/pm-value` 之后、`/pm-prd` 之前,是**可选分支**而非强制主链路——由 `/pm-value` 的 PASS 提示新增一个分支问法来触发,不是用户必须跑的一步。核心约束是比其他阶段更严格的防伪造规则:关于竞品具体功能的断言只能来自用户告知或可查证的 WebSearch 来源,不能凭训练数据的模糊印象断言。
+
+本 Task 还包含两处对已有文件的小改动:`pm-value`(Task 2 产出)的 PASS 提示文案、`pm-prd`(Task 4 产出)的输入要求小节,把 `/pm-research` 的可选产出接进去。
+
+**Files:**
+- Create: `.claude/skills/pm-research/SKILL.md`
+- Modify: `.claude/skills/pm-value/SKILL.md`(PASS 提示文案)
+- Modify: `.claude/skills/pm-prd/SKILL.md`(输入要求小节)
+
+- [ ] **Step 1: 写 SKILL.md 草稿**
+
+Create `.claude/skills/pm-research/SKILL.md`:
+
+```markdown
+---
+name: pm-research
+description: Use when a prioritized requirement's specific feature point needs narrow competitor benchmarking before solution design — triggers on phrases like "竞品怎么做的" "市场竞品调研" "对标一下竞品" "这个功能别人怎么处理". Not for broad market/opportunity discovery (that's a product-direction question, not a feature-design question), and not for requirements that haven't been scored by pm-value yet.
+---
+
+# pm-research · 市场竞品调研
+
+## 设计哲学
+
+这一步不做"大而全"的市场调研,只做**窄范围的功能点对标**——已经通过 `/pm-value` 定好要做哪个具体功能,这一步只看 2-3 个相关竞品怎么实现这同一个功能点,产出可借鉴/要避坑的结论,不是产出一份完整的竞品分析报告。
+
+## 防伪造规则(最高优先级,比其他阶段更严格)
+
+任何"竞品有/没有某功能""竞品怎么处理某场景"的具体断言,只能来自:
+1. **用户在对话中明确告知**(例如用户说"我用过竞品 X,它是这样做的")
+2. **可查证来源**:WebSearch 搜到的官方文档、帮助中心、更新日志、公开评测文章,引用时给出链接
+3. **查不到就标 `⚠️ 待确认`**,绝不能凭训练数据里对某产品的模糊印象去断言具体细节——训练数据里的印象可能已经过时,也可能本来就是错的,这是本阶段最容易出问题、也最难被发现的地方
+
+每写一条竞品功能描述之前,先问自己:这个信息是用户说的,还是刚搜到的,还是我"记得"的?如果是第三种,停下来搜索或标待确认,不要直接写。
+
+## 触发
+
+**触发词**:竞品怎么做的、市场竞品调研、对标一下竞品、这个功能别人怎么处理
+**不触发**:需求还没经过 `/pm-value` 打分(没有具体功能点可对标)、要做大范围的市场/机会发现调研(那是产品方向层面的问题,不是功能设计层面的问题——如果是这种需求,提示用户这可能更适合 `sdd:pm-discover-competitive` 这类产品发现阶段的 skill,不是本 skill 的职责范围)
+
+## 输入要求
+
+### 必须有
+
+- `03-value.md` 已存在(需要知道具体是哪个功能点、优先级多高)
+
+### 可以推断
+
+- 相关竞品清单:如果用户没有直接给出,可以根据场景描述做 WebSearch 定位(比如搜"<行业> <功能类型> 竞品"),但要跟用户确认这几个竞品选取是否合理,不要自己选完就直接往下走
+
+### 不允许猜测
+
+- 任何竞品功能的具体实现细节,见上方防伪造规则
+
+## 执行流程
+
+### Step 0 — 输入面板
+
+检查 `03-value.md` 是否存在。确认要对标的具体功能点(来自 `03-value.md` 或 `04-prd.md` 已有内容,如果 `04-prd.md` 还没写,就用 `02-clarify.md` 的「真实需求」描述)。
+
+### Step 1 — 识别竞品
+
+问用户:"这个功能,你知道有哪些竞品是怎么做的吗?"如果用户直接给出竞品名单,用用户给的。如果用户不确定,用 WebSearch 搜索定位 2-3 个相关竞品,搜索前先跟用户确认"我打算搜一下 [行业/场景] 相关的竞品,你看这个方向对吗",避免搜错方向浪费后续步骤。
+
+### Step 2 — 逐个竞品调研
+
+对每个竞品,用 WebSearch 搜索这个具体功能点的实际做法,优先找官方文档、帮助中心、更新日志、公开评测。每条信息标注来源(链接或"用户告知")。搜不到实质信息的竞品,标 `⚠️ 待确认:未找到 [竞品名] 关于此功能的公开资料`,不要用"大概是……"这种模糊措辞替代。
+
+### Step 3 — 功能对比表
+
+列一张本产品(标"规划中"或引用已有 PRD 功能描述) vs 各竞品的对比表,维度按本次功能点的关键决策点来定(比如"是否支持批量操作""异常处理方式""交互路径步数"),不是泛泛的全功能罗列。每个单元格的内容都要能对应到 Step 2 的来源标注。
+
+### Step 4 — 提炼结论
+
+**可借鉴**:哪些竞品的做法值得参考,为什么,引用对比表里的具体依据。
+**要避坑**:哪些做法可能有问题(比如查到了用户抱怨、评测指出的缺陷),引用具体来源;没有查到负面信息的,不要编一个"可能的缺点"出来凑数。
+
+### Step 5 — 质量门
+
+**BLOCKER 判据**(命中任一,列出缺项,不放行,不执行写入):
+- 做了竞品对比,但所有竞品信息都没有可查证来源(全部是训练数据印象而非 WebSearch 结果或用户告知)
+- 对比表里出现具体功能断言,却没有标来源也没有标 `⚠️ 待确认`
+
+BLOCKER 命中时,本阶段不执行写入本地文件的步骤,先要求补充真实来源(搜索或询问用户)再继续。
+
+**PASS 时**,问用户:"`/pm-research` 已完成,调研笔记已保存。是否现在进入 `/pm-prd` 做方案设计(可以在背景章节引用这份调研结论)?"
+
+## 常见设计错误
+
+> 搜不到某个竞品的具体资料,就用"业内常见做法大概是……"这种话术把印象当事实写进对比表——这正是防伪造规则要拦的,查不到就标 `⚠️ 待确认`,不要用模糊的"业内常见"去掩盖"我其实不知道"。
+
+> 把这一步做成完整的竞品分析报告(团队规模、融资情况、整体产品定位等)——本 skill 只做窄范围的功能点对标,不做这些。
+
+## 质量检查(生成前自检)
+
+- [ ] 每条竞品功能描述都标了来源(用户告知/WebSearch 链接/⚠️待确认),没有空口断言
+- [ ] 对比表的维度是本次功能点的关键决策点,不是泛泛的全功能对比
+- [ ] "可借鉴"和"要避坑"的每条结论都能追溯到对比表里的具体依据
+
+## 产出
+
+本地写 `pm-workspace/requirements/<REQ-ID>/research-competitor.md`,内容是 Step 1-4 的完整过程(竞品清单、逐个竞品的调研笔记及来源、对比表、结论)。**不写入飞书结构化字段**——这是可选调研笔记,不打乱已有的多维表格字段结构;需要团队可见时,用户可以自行把本地文件内容贴进飞书或共享链接。
+
+## 与其他 Skill 的关系
+
+| Skill | 关系 |
+|---|---|
+| `/pm-value` | 上游,要求 `03-value.md` 已存在;`/pm-value` 的 PASS 提示会问是否要先跑本 skill |
+| `/pm-prd` | 下游,背景章节可选择性引用本 skill 的调研结论,不是强制依赖 |
+| `sdd:pm-discover-competitive` | 不同颗粒度的平行能力——那个是产品发现阶段的三类竞品分析(直接/功能替代/流程替代),判断"要不要做这个方向";本 skill 是已经定好具体功能点之后的窄范围对标,判断"这个功能点怎么设计更好",两者不重复,如果用户的需求明显是前者,引导去用那个 skill |
+```
+
+- [ ] **Step 2: 修改 `pm-value` 的 PASS 提示文案**
+
+打开 `.claude/skills/pm-value/SKILL.md`,找到 Step 7(质量门)里 PASS 时的提示文案:
+
+```
+**PASS 时**,问用户:"`/pm-value` 已完成,定级为 `<P几>`。是否现在进入 `/pm-prd` 做方案设计?"(如果定级是 P3,改问:"这个需求定级为 P3,通常不建议继续投入方案设计。是否仍要继续?")
+```
+
+改成:
+
+```
+**PASS 时**(非 P3),问用户:"`/pm-value` 已完成,定级为 `<P几>`。接下来有两个选项:① 先运行 `/pm-research` 做一下竞品功能对标(可选,如果想看看同类功能别人怎么做可以先走这步),② 直接进入 `/pm-prd` 做方案设计。你想怎么走?"(如果定级是 P3,仍然改问:"这个需求定级为 P3,通常不建议继续投入方案设计。是否仍要继续?")
+```
+
+- [ ] **Step 3: 修改 `pm-prd` 的输入要求小节**
+
+打开 `.claude/skills/pm-prd/SKILL.md`,找到"输入要求"下的"必须有"小节,在其后(不要改"必须有"的内容)新增一个"可选"小节:
+
+```
+### 可选
+
+- `research-competitor.md`(来自 `/pm-research`,如果存在,Step 2 背景章节可以引用其中"可借鉴"的结论;不存在不影响继续执行)
+```
+
+并在 Step 2(背景)的说明文字末尾补一句:"如果 `pm-workspace/requirements/<REQ-ID>/research-competitor.md` 存在,可以在背景里引用其中的竞品对标结论作为补充依据(仍然遵守防伪造规则,只引用该文件里已经标注来源的内容,不要重新发挥)。"
+
+- [ ] **Step 4: RED 基线测试**
+
+派 subagent(不提及 skill,也不要让它加载任何 skill),给一个场景:要给"订单列表批量导出"功能做竞品调研,随便举 2 个相关竞品名字(可以是真实存在的同类工具)。要求"帮我看看这几个竞品这个功能是怎么做的"。观察:是否直接凭训练数据印象断言具体的交互细节,而不说明这是推测还是确认过的信息;是否在找不到确切信息时仍然给出一个"听起来很确定"的答案而不是坦白说不确定。
+
+- [ ] **Step 5: GREEN 验证**
+
+派 subagent 明确要求用 `pm-research` skill,同样场景。确认:
+1. 对每个竞品的功能描述都标注了来源(用户告知/WebSearch 链接/⚠️待确认 三者之一)
+2. 没有把训练数据的模糊印象当成确定事实陈述
+3. 对比表维度是针对这个具体功能的决策点,不是泛泛而谈
+4. 质量门正确执行——如果测试场景里确实搜不到任何竞品的可查证信息,会触发 BLOCKER 而不是硬凑结论
+
+如果不符合,回到 Step 1 修改,最多 2 轮,仍不过报告 BLOCKED。
+
+- [ ] **Step 6: Commit**
+
+```bash
+cd "/Users/mac/vibe coding/产品经理工作agent"
+git add .claude/skills/pm-research/SKILL.md .claude/skills/pm-value/SKILL.md .claude/skills/pm-prd/SKILL.md
+git commit -m "Add pm-research skill for optional competitor feature benchmarking"
+```
+
+Then update plan doc checkboxes for Task 8, commit separately: `git commit -m "Mark Task 8 steps complete in plan"`.
+
+---
+
 ## Plan Self-Review
 
 **Spec coverage:** 设计文档 §3 的六个 skill 全部对应 Task 1-6;§4 共享机制(防伪造规则、输入面板、需求 ID、质量门)内联进了每个 skill 而非单独抽成文件,符合调研到的 sdd:pm-* "扁平命名空间、无跨文件引用"惯例;§5 每个阶段的字段/流程/模板/质量门在对应 Task 的 SKILL.md 草稿里都有具体内容,没有占位符;§6 数据结构在 Task 0 的 config.json 模板和各 Task 的"产出写入 Feishu"小节里落地;§7 实施顺序(collect→value→clarify→prd→proto→pm)对应 Task 1-6 的顺序;§8 技术前提已在设计阶段验证,不需要重复任务。
