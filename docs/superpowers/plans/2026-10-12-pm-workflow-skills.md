@@ -1013,7 +1013,7 @@ git commit -m "Add pm-proto skill for interaction specification stage"
 
 **说明:** 依赖前五个 skill 已存在,最后实现。职责很薄:查状态 + 给下一步建议,不做任何阶段性产出。
 
-- [ ] **Step 1: 写 SKILL.md 草稿**
+- [x] **Step 1: 写 SKILL.md 草稿**
 
 Create `.claude/skills/pm/SKILL.md`:
 
@@ -1062,7 +1062,7 @@ description: Use when checking the status of the requirement pool as a whole, or
 本 skill 是其余五个的只读查询层,不修改任何需求记录。
 ```
 
-- [ ] **Step 2: GREEN 验证(路由器逻辑简单,跳过 RED,直接验证产出的建议是否正确)**
+- [x] **Step 2: GREEN 验证(路由器逻辑简单,跳过 RED,直接验证产出的建议是否正确)**
 
 用 Bash 在本地手动创建一个 `pm-workspace/requirements/REQ-20261012-999-测试路由/` 目录,放一个空的 `01-collect.md` 和 `02-clarify.md`(不放 `03-value.md`)。派 subagent 要求用 `pm` skill 查询 `REQ-20261012-999-测试路由` 的状态。确认它正确识别出"最新文件是 02-clarify.md",建议下一步是 `/pm-value`。
 
@@ -1073,7 +1073,7 @@ cd "/Users/mac/vibe coding/产品经理工作agent"
 rm -rf "pm-workspace/requirements/REQ-20261012-999-测试路由"
 ```
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 cd "/Users/mac/vibe coding/产品经理工作agent"
