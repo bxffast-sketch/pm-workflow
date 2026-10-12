@@ -1169,7 +1169,7 @@ git commit -m "Add install script to symlink PM skills into global ~/.claude/ski
 - Modify: `.claude/skills/pm-value/SKILL.md`(PASS 提示文案)
 - Modify: `.claude/skills/pm-prd/SKILL.md`(输入要求小节)
 
-- [ ] **Step 1: 写 SKILL.md 草稿**
+- [x] **Step 1: 写 SKILL.md 草稿**
 
 Create `.claude/skills/pm-research/SKILL.md`:
 
@@ -1271,7 +1271,7 @@ BLOCKER 命中时,本阶段不执行写入本地文件的步骤,先要求补充�
 | `sdd:pm-discover-competitive` | 不同颗粒度的平行能力——那个是产品发现阶段的三类竞品分析(直接/功能替代/流程替代),判断"要不要做这个方向";本 skill 是已经定好具体功能点之后的窄范围对标,判断"这个功能点怎么设计更好",两者不重复,如果用户的需求明显是前者,引导去用那个 skill |
 ```
 
-- [ ] **Step 2: 修改 `pm-value` 的 PASS 提示文案**
+- [x] **Step 2: 修改 `pm-value` 的 PASS 提示文案**
 
 打开 `.claude/skills/pm-value/SKILL.md`,找到 Step 7(质量门)里 PASS 时的提示文案:
 
@@ -1285,7 +1285,7 @@ BLOCKER 命中时,本阶段不执行写入本地文件的步骤,先要求补充�
 **PASS 时**(非 P3),问用户:"`/pm-value` 已完成,定级为 `<P几>`。接下来有两个选项:① 先运行 `/pm-research` 做一下竞品功能对标(可选,如果想看看同类功能别人怎么做可以先走这步),② 直接进入 `/pm-prd` 做方案设计。你想怎么走?"(如果定级是 P3,仍然改问:"这个需求定级为 P3,通常不建议继续投入方案设计。是否仍要继续?")
 ```
 
-- [ ] **Step 3: 修改 `pm-prd` 的输入要求小节**
+- [x] **Step 3: 修改 `pm-prd` 的输入要求小节**
 
 打开 `.claude/skills/pm-prd/SKILL.md`,找到"输入要求"下的"必须有"小节,在其后(不要改"必须有"的内容)新增一个"可选"小节:
 
@@ -1297,11 +1297,11 @@ BLOCKER 命中时,本阶段不执行写入本地文件的步骤,先要求补充�
 
 并在 Step 2(背景)的说明文字末尾补一句:"如果 `pm-workspace/requirements/<REQ-ID>/research-competitor.md` 存在,可以在背景里引用其中的竞品对标结论作为补充依据(仍然遵守防伪造规则,只引用该文件里已经标注来源的内容,不要重新发挥)。"
 
-- [ ] **Step 4: RED 基线测试**
+- [x] **Step 4: RED 基线测试**
 
 派 subagent(不提及 skill,也不要让它加载任何 skill),给一个场景:要给"订单列表批量导出"功能做竞品调研,随便举 2 个相关竞品名字(可以是真实存在的同类工具)。要求"帮我看看这几个竞品这个功能是怎么做的"。观察:是否直接凭训练数据印象断言具体的交互细节,而不说明这是推测还是确认过的信息;是否在找不到确切信息时仍然给出一个"听起来很确定"的答案而不是坦白说不确定。
 
-- [ ] **Step 5: GREEN 验证**
+- [x] **Step 5: GREEN 验证**
 
 派 subagent 明确要求用 `pm-research` skill,同样场景。确认:
 1. 对每个竞品的功能描述都标注了来源(用户告知/WebSearch 链接/⚠️待确认 三者之一)
@@ -1311,7 +1311,7 @@ BLOCKER 命中时,本阶段不执行写入本地文件的步骤,先要求补充�
 
 如果不符合,回到 Step 1 修改,最多 2 轮,仍不过报告 BLOCKED。
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 cd "/Users/mac/vibe coding/产品经理工作agent"
