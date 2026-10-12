@@ -1,5 +1,7 @@
 # 产品经理工作流 Skill 套件
 
+> 仓库地址:[github.com/bxffast-sketch/pm-workflow](https://github.com/bxffast-sketch/pm-workflow)
+
 一套面向 Claude Code 的产品经理全流程 skill,把 PM 标准工作流拆成五个阶段 + 一个可选分支 + 一个路由,每阶段对应一个可独立调用的指令,也支持前一阶段质量门通过后自动询问是否进入下一阶段。
 
 设计目标是打造一套「切实可用」的产品经理 agent,而不是方法论的罗列——每个框架都落地成可执行的评分模板、提问清单或自检表。
