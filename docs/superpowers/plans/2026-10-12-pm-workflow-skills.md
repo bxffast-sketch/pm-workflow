@@ -1090,7 +1090,7 @@ git commit -m "Add pm router skill for requirement pool status queries"
 
 **说明:** 本仓库验证通过后(前 6 个 Task 全部 GREEN),用这个脚本把六个 skill 同步到 `~/.claude/skills/`,这样在任何项目目录下都能用。脚本用软链接而不是复制,这样以后在本仓库改 skill 内容,全局也会同步更新,不需要重复同步。
 
-- [ ] **Step 1: 写安装脚本**
+- [x] **Step 1: 写安装脚本**
 
 Create `scripts/install-pm-skills.sh`:
 
@@ -1130,14 +1130,14 @@ done
 echo "完成。六个 PM skill 现在可以在任何项目目录下通过 /pm-collect /pm-clarify /pm-value /pm-prd /pm-proto /pm 调用。"
 ```
 
-- [ ] **Step 2: 赋予执行权限**
+- [x] **Step 2: 赋予执行权限**
 
 ```bash
 cd "/Users/mac/vibe coding/产品经理工作agent"
 chmod +x scripts/install-pm-skills.sh
 ```
 
-- [ ] **Step 3: 验证脚本(dry-run 到临时目录,不污染真实的 ~/.claude/skills)**
+- [x] **Step 3: 验证脚本(dry-run 到临时目录,不污染真实的 ~/.claude/skills)**
 
 ```bash
 cd "/Users/mac/vibe coding/产品经理工作agent"
@@ -1148,7 +1148,7 @@ rm -rf /tmp/pm-skills-install-test
 
 Expected: 输出列出六个 `已链接:` 行,临时目录下能看到六个指向本仓库的软链接。
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 cd "/Users/mac/vibe coding/产品经理工作agent"
