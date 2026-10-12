@@ -456,7 +456,7 @@ git commit -m "Add pm-value skill for requirement prioritization stage"
 **Files:**
 - Create: `.claude/skills/pm-clarify/SKILL.md`
 
-- [ ] **Step 1: 写 SKILL.md 草稿**
+- [x] **Step 1: 写 SKILL.md 草稿**
 
 Create `.claude/skills/pm-clarify/SKILL.md`:
 
@@ -556,15 +556,19 @@ PM 谈完后回来,提供四种输入源之一。skill 自动识别类型(文字
 | `lark-doc` / `lark-meeting` | 子工具,用于读取飞书文档链接或妙记链接 |
 ```
 
-- [ ] **Step 2: RED 基线测试**
+- [x] **Step 2: RED 基线测试**
 
 派 subagent(不提及 skill),给 fixture 的原始对话,要求"帮我生成一份需求澄清的沟通提纲"。预期它可能给出泛泛的"你需要什么功能"类问题,不会用 Mom Test 式的过去行为提问,维度覆盖可能不全(只问 Who/What/When 三要素,漏掉触发条件/workaround/边界等)。
 
-- [ ] **Step 3: GREEN 验证**
+> 实测:RED 基线实际表现好于预期,十个维度都有覆盖,且大部分问题也锚定在过去具体事件;自评中承认在"成功标准/边界"两处仍带了评价性/偏好色彩。与 GREEN 的差距主要在于结构化程度和"是否明确对照十个维度自检",而非完全答非所问。
+
+- [x] **Step 3: GREEN 验证**
 
 派 subagent 明确要求用 `pm-clarify` skill。确认提纲覆盖十个维度且追问话术是具体过去行为式提问,而非假设性意见提问。再模拟一轮回填(用 fixture 里"真实需求是趋势可视化"的线索作为回填内容),确认它正确识别出"原始诉求=导出按钮,真实需求=趋势图表"的差异,而不是直接把回填里提到的"导出按钮"当成真实需求。
 
-- [ ] **Step 4: Commit**
+> 实测:GREEN 十个维度全部覆盖,追问话术锚定过去具体事件;回填阶段正确识别"原始诉求=导出按钮,真实需求=趋势图表(数据可视化)",未将回填中提到的"Excel"字面意思当成真实需求,显式引用了 SKILL.md 的"常见设计错误"规避该陷阱。一轮通过,无需修订。
+
+- [x] **Step 4: Commit**
 
 ```bash
 cd "/Users/mac/vibe coding/产品经理工作agent"
