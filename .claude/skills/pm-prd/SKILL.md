@@ -17,6 +17,10 @@ description: Use when a prioritized requirement (P0-P2, scored by pm-value) need
 - `03-value.md` 已存在,且优先级为 P0/P1/P2
 - `02-clarify.md` 已存在(「真实需求」结论,背景章节要引用)
 
+### 可选
+
+- `research-competitor.md`(来自 `/pm-research`,如果存在,Step 2 背景章节可以引用其中"可借鉴"的结论;不存在不影响继续执行)
+
 ### 前置拦截
 
 如果优先级是 P3:停下来问用户"这个需求定级为 P3,通常不建议投入方案设计资源。是否仍要继续(可能有非量化的战略理由)?"用户确认继续才往下走,否则终止。
@@ -56,7 +60,7 @@ description: Use when a prioritized requirement (P0-P2, scored by pm-value) need
 
 引用 `02-clarify.md` 的「真实需求」结论(不是重复「原始诉求」),说明这个需求从哪来、解决什么问题。
 
-如果 `02-clarify.md` 或此前的沟通中提到了调研数据(比如某个历史指标、某次调研发现),按防伪造规则列出基线数据和来源;没有基线数据就标 `⚠️ 待确认:暂无基线数据支撑,建议对比类似历史迭代效果`,不要为了显得有依据而编一个百分比。
+如果 `02-clarify.md` 或此前的沟通中提到了调研数据(比如某个历史指标、某次调研发现),按防伪造规则列出基线数据和来源;没有基线数据就标 `⚠️ 待确认:暂无基线数据支撑,建议对比类似历史迭代效果`,不要为了显得有依据而编一个百分比。如果 `pm-workspace/requirements/<REQ-ID>/research-competitor.md` 存在,可以在背景里引用其中的竞品对标结论作为补充依据(仍然遵守防伪造规则,只引用该文件里已经标注来源的内容,不要重新发挥)。
 
 ### Step 3 — 名词解释
 
