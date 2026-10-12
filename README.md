@@ -59,3 +59,7 @@ pm-workspace/
 ## 设计文档
 
 完整设计思路见 [`docs/superpowers/specs/2026-10-12-pm-workflow-skills-design.md`](docs/superpowers/specs/2026-10-12-pm-workflow-skills-design.md),实施计划见 [`docs/superpowers/plans/2026-10-12-pm-workflow-skills.md`](docs/superpowers/plans/2026-10-12-pm-workflow-skills.md)。
+
+## License
+
+[MIT](LICENSE)
