@@ -1,0 +1,8 @@
+# PM workflow skill suite runtime data — user-specific, never commit
+pm-workspace/config.json
+pm-workspace/requirements/
+
+# Editor/tooling noise
+.idea/
+.gstack/
+.playwright-mcp/
