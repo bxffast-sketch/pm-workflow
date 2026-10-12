@@ -585,7 +585,7 @@ git commit -m "Add pm-clarify skill for requirement clarification stage"
 **Files:**
 - Create: `.claude/skills/pm-prd/SKILL.md`
 
-- [ ] **Step 1: 写 SKILL.md 草稿**
+- [x] **Step 1: 写 SKILL.md 草稿**
 
 Create `.claude/skills/pm-prd/SKILL.md`:
 
@@ -834,11 +834,11 @@ Then <期望结果>
 | `/pm-proto` | 下游,本 skill 的"产品交互总览"只是轻量概览,详细交互规格由 `/pm-proto` 负责 |
 ```
 
-- [ ] **Step 2: RED 基线测试**
+- [x] **Step 2: RED 基线测试**
 
 派 subagent(不提及 skill),给它 fixture 里"订单数据量级可能上万行"的信息,要求"帮我写一份这个导出功能的 PRD,包含产品目标、业务流程图"。预期它会:(a) 画的流程图只有"点击导出→生成→下载"的理想路径,不会主动识别超时/并发/网络中断等异常分支;(b) 产品目标写成"提升运营效率"这类无法量化的描述,不会给基线值/目标值或标待确认;(c) 不会主动写变更历史表或元信息头。
 
-- [ ] **Step 3: GREEN 验证**
+- [x] **Step 3: GREEN 验证**
 
 派 subagent 明确要求用 `pm-prd` skill,同样输入。确认:
 1. 业务流程图包含至少 3 种异常分支(呼应 fixture 的"导出超时/网络断开/并发导出"提示),状态机每个状态都有退出路径,验收标准是 Given-When-Then 格式
@@ -848,7 +848,7 @@ Then <期望结果>
 
 如果有任何一项不符合,回到 Step 1 修改,最多 2 轮,仍不过则报告 BLOCKED。
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 cd "/Users/mac/vibe coding/产品经理工作agent"
