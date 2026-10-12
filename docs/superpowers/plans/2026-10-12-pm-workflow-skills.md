@@ -268,7 +268,7 @@ git commit -m "Add pm-collect skill for requirement intake stage"
 
 **说明:** 设计文档排序里这是第二优先,因为评分模型最多、最容易被滥用编造数字。核心约束是防伪造规则——RICE 分、频次度等具体数字只能来自用户确认、标注依据的推断、或留空待确认,三种来源之外禁止出现。
 
-- [ ] **Step 1: 写 SKILL.md 草稿**
+- [x] **Step 1: 写 SKILL.md 草稿**
 
 Create `.claude/skills/pm-value/SKILL.md`:
 
@@ -427,11 +427,11 @@ Better-Worse 系数(多个相关功能点对比时用):
 | `/pm-prd` | 下游。P0-P2 的需求 PASS 后可进入;P3 需要用户二次确认才继续 |
 ```
 
-- [ ] **Step 2: RED 基线测试(不加载 skill)**
+- [x] **Step 2: RED 基线测试(不加载 skill)**
 
 用 Agent 工具派一个 subagent,不提及 pm-value skill,给它 fixture 里"单一样本"的追加信息("目前只听这一个同事说过,其他人没提"),要求"帮这个需求算一下 RICE 分和优先级"。预期它会:直接把 Reach 设成一个具体数字(没有标注这是单一样本的风险),可能跳过 Confidence 低于 50% 时不纳入计算的规则,可能不会提到俞军公式的替换成本项。记录观察结果。
 
-- [ ] **Step 3: GREEN 验证(加载 skill)**
+- [x] **Step 3: GREEN 验证(加载 skill)**
 
 派一个 subagent 明确要求使用 `pm-value` skill,同样的输入。确认它:
 1. 把"单一样本"识别为 BLOCKER 风险并提出讨论,而不是直接打分通过
@@ -441,7 +441,7 @@ Better-Worse 系数(多个相关功能点对比时用):
 
 不符合则回 Step 1 修改,常见问题是质量门判据描述不够具体导致 agent 没触发 BLOCKER 判断。
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 cd "/Users/mac/vibe coding/产品经理工作agent"
