@@ -109,7 +109,7 @@ git commit -m "Add shared test fixture and workspace config template for PM skil
 
 **说明:** 这是六个 skill 里最简单的一个,优先实现用来验证飞书自动建表链路。核心约束:只做忠实记录,不替用户下结论"真实需求"是什么。
 
-- [ ] **Step 1: 写 SKILL.md 草稿**
+- [x] **Step 1: 写 SKILL.md 草稿**
 
 Create `.claude/skills/pm-collect/SKILL.md`:
 
@@ -237,11 +237,11 @@ Create `pm-workspace/requirements/<REQ-ID>/01-collect.md`,内容是 Step 0-4 的
 | `huashu-design` | 无直接关系 |
 ```
 
-- [ ] **Step 2: RED 基线测试(不加载 skill)**
+- [x] **Step 2: RED 基线测试(不加载 skill)**
 
 用 Agent 工具派一个 subagent,prompt 里**不要提到 pm-collect skill**,只给它 `docs/superpowers/plans/fixtures/sample-requirement.md` 的原始对话片段,要求"帮我把这条需求记录下来,整理成一个需求卡片"。观察并记录它的行为:预期它会直接把"导出 Excel 按钮"当作记录内容(而不是场景描述),可能会跳过"转述人 vs 原始提出人"的区分,可能会编造一个紧急程度而不说明依据。把观察结果记在这个 Task 下方的注释里(不用写文件,口头确认即可继续)。
 
-- [ ] **Step 3: GREEN 验证(加载 skill)**
+- [x] **Step 3: GREEN 验证(加载 skill)**
 
 用 Agent 工具派一个 subagent,prompt 里明确要求"使用 pm-collect skill 处理这条需求"(并告知 subagent 它可以用 Skill 工具加载 `pm-collect`),给同样的 fixture 内容。确认它:
 1. 走了 Step 0 输入面板,且识别出"运营同事说"是转述,追问了原始提出人
@@ -251,7 +251,7 @@ Create `pm-workspace/requirements/<REQ-ID>/01-collect.md`,内容是 Step 0-4 的
 
 如果有任何一项不符合,回到 Step 1 修改 SKILL.md 内容(常见漏洞:触发条件不够明确、Step 3 顺序描述不清晰导致 agent 跳步),重新跑 Step 3 直到通过。
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 cd "/Users/mac/vibe coding/产品经理工作agent"
