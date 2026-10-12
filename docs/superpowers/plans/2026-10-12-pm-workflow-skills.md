@@ -865,7 +865,7 @@ Then update plan doc: mark Task 4's checkboxes `[x]` in `docs/superpowers/plans/
 **Files:**
 - Create: `.claude/skills/pm-proto/SKILL.md`
 
-- [ ] **Step 1: 写 SKILL.md 草稿**
+- [x] **Step 1: 写 SKILL.md 草稿**
 
 Create `.claude/skills/pm-proto/SKILL.md`:
 
@@ -988,15 +988,15 @@ primary / success / warning / danger / info 五个语义色的使用场景说明
 | `huashu-design` | 下游子工具,仅在用户确认后委托,本 skill 不重新实现 HTML 原型生成能力 |
 ```
 
-- [ ] **Step 2: RED 基线测试**
+- [x] **Step 2: RED 基线测试**
 
 派 subagent(不提及 skill),要求"帮我设计这个导出功能的交互,包含状态和可用性检查"。预期它可能只描述理想态交互,不会系统性填 5 态;可能提到"易用性"但不会逐条过尼尔森 10 原则;大概率不会提具体 WCAG 数值。
 
-- [ ] **Step 3: GREEN 验证**
+- [x] **Step 3: GREEN 验证**
 
 派 subagent 明确要求用 `pm-proto` skill。确认 5 态表格完整、尼尔森 10 条逐一有结论、WCAG 数值标注落到具体元素上。确认它在 Step 7 PASS 后主动问是否委托 huashu-design,而不是自己尝试写 HTML。
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 cd "/Users/mac/vibe coding/产品经理工作agent"
